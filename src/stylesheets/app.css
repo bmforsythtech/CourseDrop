@@ -1,0 +1,223 @@
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+body {
+	background-image: url('../images/backgrounds/light_noise_diagonal.png');
+	background-color: #FFF;
+}
+
+.nopad { padding: 0; }
+
+.header { background: #000; color: #EEE; padding-top: 16px; }
+
+.header .logo h1 { margin: 0; }
+.header .logo {  }
+.header .logo a {
+	display: block;
+	text-indent: -9999px;
+	overflow: hidden;
+	width: 146px;
+	height: 32px;
+	margin: 0 0 4px;
+	background: url('../images/ui/forsythtech.png') no-repeat top left;
+}
+
+.header .title span {
+	font-size: 20px;
+	margin: 0;
+}
+.header span { margin: 0; }
+.header span .button { margin: 0; padding: 0.4rem 0.8rem; }
+
+.menu-bar .sublogo a {
+	display: block;
+	text-indent: -9999px;
+	overflow: hidden;
+	width: 146px;
+	height: 26px;
+	margin: 2px 0;
+	background: url('../images/ui/forsythtech.png') no-repeat 0 -42px;
+}
+
+.menu-bar {
+        margin-bottom: 10px;
+	background: #3460b8; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3460b8 0%, #1d41a1 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3460b8), color-stop(100%,#1d41a1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #3460b8 0%,#1d41a1 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #3460b8 0%,#1d41a1 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #3460b8 0%,#1d41a1 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #3460b8 0%,#1d41a1 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3460b8', endColorstr='#1d41a1',GradientType=0 ); /* IE6-9 */
+	-webkit-box-shadow: 0 2px 6px 1px #AAA;
+	-moz-box-shadow: 0 2px 6px 1px #AAA;
+	box-shadow: 0 2px 6px 1px #AAA;
+}
+
+@media only screen and (min-width: 40.063em) {
+    .menu-bar {
+        height: 30px;
+    }
+    .top-bar-section li:not(.has-form) a:not(.button) {
+        line-height: 30px;
+    }
+}
+
+.menu-bar .top-bar,
+.menu-bar .top-bar-section ul,
+.menu-bar .top-bar-section ul li,
+.menu-bar .top-bar-section ul li a,
+.top-bar-section li:not(.has-form) a:not(.button) {
+        background: none;
+}
+
+.container {
+	overflow: hidden;
+	max-width: 940px;
+	margin: 5px auto;
+	border: #2044A3 solid 1px;
+	-moz-box-shadow:    0 0 2px 2px #000;
+	-webkit-box-shadow: 0 0 2px 2px #000;
+	box-shadow:         0 0 2px 2px #000;
+	-moz-border-radius: 5px;
+	border-radius: 10px;
+	background: url('../images/ui/transparent_bg.png') repeat top left;
+}
+
+footer hr { margin: 12px 0 11px; }
+
+ul { list-style-position: inside; }
+
+.sub-nav { margin: 0; }
+
+/* -----------------------------------------
+   Page Name 1
+----------------------------------------- */
+
+
+
+
+/* -----------------------------------------
+   Print Style
+----------------------------------------- */
+
+@media print
+{
+	.container {
+		overflow: inherit;
+		max-width: inherit;
+		margin: 0;
+		border: none;
+		box-shadow: none;
+		border-radius: none;
+		background: none;
+	}
+}
+
+.calendar {
+	font-family: 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+	font-size: 0.9em;
+	background-color: #EEE;
+	color: #333;
+	border: 1px solid #DDD;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	padding: 0.2em;
+	width: 14em;
+}
+
+.calendar .months {
+	background-color: #F6AF3A;
+	border: 1px solid #E78F08;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	color: #FFF;
+	padding: 0.2em;
+	text-align: center;
+}
+
+.calendar .prev-month,
+.calendar .next-month {
+	padding: 0;
+}
+
+.calendar .prev-month {
+	float: left;
+}
+
+.calendar .next-month {
+	float: right;
+}
+
+.calendar .current-month {
+	margin: 0 auto;
+}
+
+.calendar .months .prev-month,
+.calendar .months .next-month {
+	color: #FFF;
+	text-decoration: none;
+	padding: 0 0.4em;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.calendar .months .prev-month:hover,
+.calendar .months .next-month:hover {
+	background-color: #FDF5CE;
+	color: #C77405;
+}
+
+.calendar table {
+	border-collapse: collapse;
+	padding: 0;
+	font-size: 0.8em;
+	width: 100%;
+}
+
+.calendar th {
+	text-align: center;
+}
+
+.calendar td {
+	text-align: right;
+	padding: 1px;
+	width: 14.3%;
+}
+
+.calendar td span {
+	display: block;
+	color: #1C94C4;
+	background-color: #F6F6F6;
+	border: 1px solid #CCC;
+	text-decoration: none;
+	padding: 0.2em;
+	cursor: pointer;
+}
+
+.calendar td span:hover {
+	color: #C77405;
+	background-color: #FDF5CE;
+	border: 1px solid #FBCB09;
+}
+
+.calendar td.today span {
+	background-color: #FFF0A5;
+	border: 1px solid #FED22F;
+	color: #363636;
+}
