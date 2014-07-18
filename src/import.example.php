@@ -11,7 +11,7 @@ define("COURSES_FILE", "COURSE");
 define("DIVISIONS_FILE", "CourseDivision");
 define("NODROP_FILE", "NoDropStudents");
 define("ALERT_EMAILS", "user@domain.com"); //Email addresses to send alert messages to.
-//MySQL Connection (Not Used) Script converted to load CSV files and store them in memory
+
 define("MYSQL_HOST", "localhost");
 define("MYSQL_USER", "username");
 define("MYSQL_PASS", "password");
