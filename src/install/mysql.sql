@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 18, 2014 at 12:54 PM
+-- Generation Time: Sep 19, 2014 at 10:38 AM
 -- Server version: 5.1.73-log
 -- PHP Version: 5.3.3
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `sent` tinyint(1) NOT NULL,
   `tosend` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=116 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `errorlogs` (
   `name` varchar(128) NOT NULL,
   `ip` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
   `deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Form Search` (`semester`,`course`,`studentid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2115 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `time` int(11) NOT NULL,
   `ip` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10182 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -172,6 +172,23 @@ CREATE TABLE IF NOT EXISTS `nodrop` (
   `user_id` varchar(16) NOT NULL,
   UNIQUE KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `studentid` varchar(16) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `action` varchar(32) NOT NULL,
+  `time` int(11) NOT NULL,
+  `data` text NOT NULL,
+  `ip` varchar(16) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -207,7 +224,30 @@ CREATE TABLE IF NOT EXISTS `users` (
   `gender` varchar(4) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41965 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `config`
+--
+
+INSERT INTO `config` (`ckey`, `value`) VALUES
+('open', '08/28/2014'),
+('close', '12/03/2014'),
+('wpcutoff', '10/20/2014'),
+('wfcutoff', '10/20/2014'),
+('closedMessage', ''),
+('deanforetd', ''),
+('deanforbit', ''),
+('deanforhss', ''),
+('deanforhtd', ''),
+('deanformst', ''),
+('studentservicesemail', ''),
+('veteransemail', ''),
+('recordsemail', ''),
+('year', '2014'),
+('iopen', '08/28/2014'),
+('iclose', '12/18/2014'),
+('semester', 'FA');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

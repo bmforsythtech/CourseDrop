@@ -1,17 +1,14 @@
 <?php
-	define('MY_HOST', 'localhost');
-	define('MY_USER', 'username');
-	define('MY_PASS', 'password');
-	define('MY_DATA', 'database');
-	
         date_default_timezone_set('America/New_York');
         
+        chdir(__DIR__);
+        chdir('..');
+        
 	//Required files
-	require('classes/mysql.php');
-	require('functions/emails.php');
-	require('functions/logs.php');
-	
-	//$debugemail = 'bmccann@forsythtech.edu'; //Uncomment this and set to debug email.
+        require('config.php');
+	require(DIR_CLASSES .'/mysql.php');
+	require(DIR_FUNCTIONS . '/emails.php');
+	require(DIR_FUNCTIONS . '/logs.php');
 	
 	define('ALERT_INT', 86400);
 	

@@ -4,8 +4,8 @@ require_once('config.php');
 require_once(DIR_INCLUDES . 'init.php');
 require_once(DIR_INCLUDES . 'instructor.php');
 
-if (strtotime($config['open']) > time() ||
-        strtotime($config['close']) < time()
+if (strtotime($config['iopen']) > time() ||
+        strtotime($config['iclose']) < time()
 ) {
     include(DIR_VIEWS . 'header.php');
     include(DIR_VIEWS . 'form.closed.php');

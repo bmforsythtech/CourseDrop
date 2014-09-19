@@ -68,14 +68,16 @@ if ($_SESSION['auth'] != 1) {
             foreach ($admins as $admin) {
                 if ($_SESSION['username'] == $admin) {
                     $_SESSION['admin'] = 1;
+                    header('Location: view_form.php');
+                    die();
                 }
             }
 
             if (!empty($_SESSION['return_url'])) {
-                header('Location: /' . $_SESSION['return_url']);
+                header('Location: ' . $_SESSION['return_url']);
                 unset($_SESSION['return_url']);
                 die();
-            } else {
+            } else {                
                 header('Location: form.php');
                 die();
             }
@@ -85,7 +87,7 @@ if ($_SESSION['auth'] != 1) {
 
 if ($_SESSION['auth'] == 1) {
     if (!empty($_SESSION['return_url'])) {
-        header('Location: /' . $_SESSION['return_url']);
+        header('Location: ' . $_SESSION['return_url']);
         unset($_SESSION['return_url']);
         die();
     } else {

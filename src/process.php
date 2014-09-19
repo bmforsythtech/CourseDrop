@@ -41,11 +41,15 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
     
     if(empty($dresult[0]['division'])) $dresult[0]['division'] = '';
 
-    //TODO - Duplicate Check
-    //$query = "SELECT id FROM forms WHERE semester = ? AND course = ?";
-    //$params = array($semester, $cresult[0]['course']);
-    //$dresult = $mysql->rawQuery($query, $params);
-        
+    //Duplicate Check
+    $query = "SELECT id FROM forms WHERE semester = ? AND course = ? AND studentid = ?";
+    $params = array($semester, $cresult[0]['course'], $sresult[0]['user_id']);
+    $dresult = $mysql->rawQuery($query, $params);
+    
+    if (!empty($dresult)){
+        continue;
+    }
+    
     $data = array();
     $data['status'] = $statuses[1];
     $data['status_code'] = '1';
@@ -67,6 +71,13 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
     $data['idue'] = mktime(date("H"), date("i"), date("s"), date("n"), date("j") + 1, date("Y"));
     $data['veteran'] = $_SESSION['veteran'];
     $data['division'] = $dresult[0]['division'];
+    
+    //The MYSQL insert class/function fails on null varibles
+    foreach ($data as $key=>$value){
+        if (empty($value)){
+            unset($data[$key]);
+        }
+    }
 
     $insert_id = $mysql->insert('forms', $data);
 
@@ -94,9 +105,9 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
 if (empty($_SESSION['errors'])) {
     header('Location: confirmation.php');
     unset($_SESSION['coursesToDrop']);
-    writeerror(print_r($_SESSION['errors'], true) . " DATA:" . print_r($data, true));
     exit();
 } else {
+    writeerror(print_r($_SESSION['errors'], true) . " DATA:" . print_r($data, true));
     header('Location: form.php');
     exit();
 }

@@ -17,7 +17,7 @@
                         <a href="<?php
                         $logo_path = pathinfo($_SERVER['REQUEST_URI']);
                         echo $logo_path['dirname'];
-                        ?>" name="Logo"><img src="images/ui/forsythtech.png" /></a>
+                        ?>" name="Logo">Forsyth Tech</a>
                     </div>
                     <div class="large-5 medium-5 columns title">
                         <span>Online Course Withdrawal</span>

@@ -14,17 +14,6 @@ require_once(DIR_CLASSES . 'mysql.php');
 require_once(DIR_FUNCTIONS . 'emails.php');
 require_once(DIR_FUNCTIONS . 'logs.php');
 
-//Determine current semester
-if (date('n') >= 1 && date('n') <= 4) {
-    $semester = date('Y') . 'SP';
-}
-if (date('n') >= 5 && date('n') <= 7) {
-    $semester = date('Y') . 'SU';
-}
-if (date('n') >= 8 && date('n') <= 12) {
-    $semester = date('Y') . 'FA';
-}
-
 //Check to see if user is logged in, if not redirect to login page.
 if ($_SESSION['auth'] != 1 && 
     basename($_SERVER['SCRIPT_FILENAME']) != 'index.php' &&
@@ -42,4 +31,10 @@ $mysql = new Mysqlidb(MY_HOST, MY_USER, MY_PASS, MY_DATA);
 $config = array();
 foreach ($mysql->get('config') as $value) {
     $config[$value['ckey']] = $value['value'];
+}
+
+if (isset($config['year']) && isset($config['semester'])){
+    $semester = $config['year'] . $config['semester'];
+} else {
+    $_SESSION['errors'][] = 'Year and semeseter need to be configured in the setup screen.';
 }

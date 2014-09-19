@@ -2,24 +2,15 @@
 
 define("SCRIPT_TIMEOUT", 3540); //In seconds.
 define("MEMORY_LIMIT", "256M");
-define("IMPORT_DIR", "/path/to/import"); //Directory to process CSV files from.  No trailing slash.
+define("IMPORT_DIR", "/home/coursedrop/import"); //Directory to process CSV files from.  No trailing slash.
 define("PROCESS_FILES", 86400); //Only process files that were imported in the last 3600 seconds (hour).
 define("USERS_FILE", "USER");
 define("INSTRUCT_FILE", "INSTRUCTOR");
 define("STUDENT_FILE", "STUDENT");
-define("COURSES_FILE", "COURSE");
-define("DIVISIONS_FILE", "CourseDivision");
+define("COURSES_FILE", "COURSES");
+define("DIVISIONS_FILE", "CourseDivisions");
 define("NODROP_FILE", "NoDropStudents");
-define("ALERT_EMAILS", "user@domain.com"); //Email addresses to send alert messages to.
 
-define("MYSQL_HOST", "localhost");
-define("MYSQL_USER", "username");
-define("MYSQL_PASS", "password");
-define("MYSQL_DB", "database");
-define("MYSQL_HOST2", "localhost");
-define("MYSQL_USER2", "username");
-define("MYSQL_PASS2", "password");
-define("MYSQL_DB2", "database");
 define("MYSQL_UTABLE", "users");
 define("MYSQL_ITABLE", "instructors");
 define("MYSQL_STABLE", "students");
@@ -48,6 +39,8 @@ define("STUDE_ROLE", "ROLE");
 define("COURS_COURSE", "EXTERNAL_COURSE_KEY");
 define("COURS_NAME", "COURSE_NAME");
 define("COURS_AVAILABLE", "AVAILABLE_IND");
+define("COURS_START", "START_DATE");
+define("COURS_END", "END_DATE");
 
 define("DIV_COURSE", "COURSE_ID");
 define("DIV_DIVISION", "DIVISION");
@@ -58,16 +51,17 @@ ini_set('memory_limit', MEMORY_LIMIT);
 set_time_limit(SCRIPT_TIMEOUT);
 error_reporting(E_ERROR);
 chdir(__DIR__);
+chdir('..');
 date_default_timezone_set('America/New_York');
 
 $errors = array();
 $debug = false;
 
-include_once('classes/mysql.php');
+include_once('config.php');
+include_once(DIR_CLASSES .'/mysql.php');
 
 //MySQL
-$mysql = new Mysqlidb(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB);
-$mysql2 = new Mysqlidb(MYSQL_HOST2, MYSQL_USER2, MYSQL_PASS2, MYSQL_DB2);
+$mysql = new Mysqlidb(MY_HOST, MY_USER, MY_PASS, MY_DATA);
 
 if ($handle = opendir(IMPORT_DIR)) {
     $imported_files = array();
@@ -91,6 +85,8 @@ if (empty($imported_files) &&
 
 //Loop through each file, determine what file it is and perform the import.
 foreach ($imported_files as $imported_file) {
+    $processed = false;
+    
     if ($debug) {
         $errors[] = "Inspecting file: " . $imported_file;
     }
@@ -103,6 +99,7 @@ foreach ($imported_files as $imported_file) {
         if (!import_users($imported_file)) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
     if (preg_match('/' . INSTRUCT_FILE . '-(\w+)/i', $imported_file, $matches)) {
         if ($debug) {
@@ -111,6 +108,7 @@ foreach ($imported_files as $imported_file) {
         if (!import_instructors($imported_file, $matches[1])) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
     if (preg_match('/' . STUDENT_FILE . '-(\w+)/i', $imported_file, $matches)) {
         if ($debug) {
@@ -119,6 +117,7 @@ foreach ($imported_files as $imported_file) {
         if (!import_students($imported_file, $matches[1])) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
     if (preg_match('/' . COURSES_FILE . '-(\w+)/i', $imported_file, $matches)) {
         if ($debug) {
@@ -127,6 +126,7 @@ foreach ($imported_files as $imported_file) {
         if (!import_courses($imported_file, $matches[1])) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
     if (preg_match('/' . DIVISIONS_FILE . '-(\w+)/i', $imported_file, $matches)) {
         if ($debug) {
@@ -135,6 +135,7 @@ foreach ($imported_files as $imported_file) {
         if (!import_divisions($imported_file, $matches[1])) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
     if (preg_match('/' . NODROP_FILE . '/i', $imported_file, $matches)) {
         if ($debug) {
@@ -143,8 +144,13 @@ foreach ($imported_files as $imported_file) {
         if (!import_nodrop($imported_file)) {
             $errors[] = "Could not import file: " . $imported_file;
         }
+        $processed = true;
     }
 
+    if (!$processed) {
+        $errors[] = "Did not process file, no method matched: " . $imported_file;
+    }
+    
     if ($debug) {
         $errors[] = "Done loading file: " . $imported_file;
     }
@@ -165,8 +171,6 @@ function import_users($file) {
     //Lock table while we import
     $mysql->truncate(MYSQL_UTABLE);
     $mysql->lock(MYSQL_UTABLE);
-    $mysql2->truncate(MYSQL_UTABLE);
-    $mysql2->lock(MYSQL_UTABLE);
 
     foreach ($users as $user) {
         $data = array();
@@ -179,11 +183,9 @@ function import_users($file) {
         $data['gender'] = $user[USERS_GENDER];
 
         $mysql->insert(MYSQL_UTABLE, $data);
-        $mysql2->insert(MYSQL_UTABLE, $data);
     }
 
     $mysql->unlock(MYSQL_UTABLE);
-    $mysql2->unlock(MYSQL_UTABLE);
 
     return true;
 }
@@ -197,9 +199,6 @@ function import_instructors($file, $semester) {
     $mysql->lock(MYSQL_ITABLE);
     $mysql->where('semester', $semester);
     $mysql->delete(MYSQL_ITABLE);
-    $mysql2->lock(MYSQL_ITABLE);
-    $mysql2->where('semester', $semester);
-    $mysql2->delete(MYSQL_ITABLE);
 
     foreach ($instructors as $instructor) {
         $data = array();
@@ -209,11 +208,9 @@ function import_instructors($file, $semester) {
         $data['role'] = $instructor[INSTR_ROLE];
 
         $mysql->insert(MYSQL_ITABLE, $data);
-        $mysql2->insert(MYSQL_ITABLE, $data);
     }
 
     $mysql->unlock(MYSQL_ITABLE);
-    $mysql2->unlock(MYSQL_ITABLE);
 
     return true;
 }
@@ -227,9 +224,6 @@ function import_students($file, $semester) {
     $mysql->lock(MYSQL_STABLE);
     $mysql->where('semester', $semester);
     $mysql->delete(MYSQL_STABLE);
-    $mysql2->lock(MYSQL_STABLE);
-    $mysql2->where('semester', $semester);
-    $mysql2->delete(MYSQL_STABLE);
 
     foreach ($students as $student) {
         $data = array();
@@ -240,11 +234,9 @@ function import_students($file, $semester) {
         $data['role'] = $student[STUDE_ROLE];
 
         $mysql->insert(MYSQL_STABLE, $data);
-        $mysql2->insert(MYSQL_STABLE, $data);
     }
 
     $mysql->unlock(MYSQL_STABLE);
-    $mysql2->unlock(MYSQL_STABLE);
 
     return true;
 }
@@ -258,9 +250,6 @@ function import_courses($file, $semester) {
     $mysql->lock(MYSQL_CTABLE);
     $mysql->where('semester', $semester);
     $mysql->delete(MYSQL_CTABLE);
-    $mysql2->lock(MYSQL_CTABLE);
-    $mysql2->where('semester', $semester);
-    $mysql2->delete(MYSQL_CTABLE);
 
     foreach ($courses as $course) {
         $data = array();
@@ -268,13 +257,13 @@ function import_courses($file, $semester) {
         $data['course'] = $course[COURS_COURSE];
         $data['name'] = $course[COURS_NAME];
         $data['available'] = $course[COURS_AVAILABLE];
+        $data['start_date'] = strtotime($course[COURS_START]);
+        $data['end_date'] = strtotime($course[COURS_END]);
 
-        $mysql->insert(MYSQL_CTABLE, $data);
-        $mysql2->insert(MYSQL_CTABLE, $data);
+        $result = $mysql->insert(MYSQL_CTABLE, $data);
     }
 
     $mysql->unlock(MYSQL_CTABLE);
-    $mysql2->unlock(MYSQL_CTABLE);
 
     return true;
 }
@@ -288,9 +277,6 @@ function import_divisions($file, $semester) {
     $mysql->lock(MYSQL_DTABLE);
     $mysql->where('semester', $semester);
     $mysql->delete(MYSQL_DTABLE);
-    $mysql2->lock(MYSQL_DTABLE);
-    $mysql2->where('semester', $semester);
-    $mysql2->delete(MYSQL_DTABLE);
 
     foreach ($divisions as $division) {
         $data = array();
@@ -299,11 +285,9 @@ function import_divisions($file, $semester) {
         $data['division'] = $division[DIV_DIVISION];
 
         $mysql->insert(MYSQL_DTABLE, $data);
-        $mysql2->insert(MYSQL_DTABLE, $data);
     }
 
     $mysql->unlock(MYSQL_DTABLE);
-    $mysql2->unlock(MYSQL_DTABLE);
 
     return true;
 }
@@ -320,7 +304,7 @@ function import_nodrop($file) {
     foreach ($nodrops as $nodrop) {
         $data = array();
         $data['user_id'] = $nodrop[NOD_ID];
-        
+
         $mysql->insert(MYSQL_NTABLE, $data);
     }
 
@@ -357,8 +341,8 @@ function parse_csv($file) {
 }
 
 function alert_email($message) {
-    $headers = 'From: Course Drop Script <webmaster@forsythtech.edu>' . "\r\n";
-    return mail(ALERT_EMAILS, 'Course Drop Import Error', $message, $headers);
+    $headers = 'From: Course Drop Script <' . DEBUG_FROM . '>' . "\r\n";
+    return mail(DEBUG_EMAILS, 'Course Drop Import Error', $message, $headers);
 }
 
 ?>

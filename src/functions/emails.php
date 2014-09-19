@@ -2,11 +2,13 @@
 
 function drop_all($data) {
     global $config;
-
+    
+    if (!isset($config['studentservicesemail'])) return false;
+    
     $emailTo = implode(',', explode("\n", $config['studentservicesemail']));
     $subject = 'Online Course Withdrawal: ' . $data['firstname'] . ' ' . $data['lastname'] . ' Dropping All Courses';
-    $headers = 'From: webmaster@forsythtech.edu' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n";
+    $headers = 'From: ' . EMAIL_FROM . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n";
     $message = 'Name: ' . $data['firstname'] . ' ' . $data['lastname'] . "\r\n" .
             'SID: ' . $data['studentid'] . "\r\n" .
             'Phone: ' . $data['phone'] . "\r\n" .
@@ -21,13 +23,15 @@ function drop_all($data) {
 function veteran_check($data) {
     global $config;
 
+    if (!isset($config['veteransemail'])) return false;
+    
     if ($data['veteran'] == 'no' || empty($data['veteran']))
         return;
 
     $emailTo = implode(',', explode("\n", $config['veteransemail']));
     $subject = 'Online Course Withdrawal: Veteran, ' . $data['firstname'] . ' ' . $data['lastname'] . ', Dropping Course';
-    $headers = 'From: webmaster@forsythtech.edu' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ' . EMAIL_FROM . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'Student Name: ' . $data['firstname'] . ' ' . $data['lastname'] . "<br>\r\n" .
@@ -47,10 +51,15 @@ function veteran_check($data) {
 function student_confirmation($data) {
     global $config;
 
+    if (empty($data['studentemail'])){
+        writelog($data['id'], 'No Student email set.');
+        return false;
+    }
+    
     $emailTo = $data['studentemail'];
     $subject = 'Online Drop Form Initiated: ' . $data['id'];
-    $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ForsythTech Records Office <' . EMAIL_RECORDS . '>' . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'Hi ' . $data['firstname'] . ',' . "<br>\r\n" .
@@ -73,10 +82,15 @@ function student_confirmation($data) {
 function instructor_request($data) {
     global $config;
 
+    if (empty($data['instructoremail'])){
+        writelog($data['id'], 'No Instructor email set.');
+        return false;
+    }
+    
     $emailTo = $data['instructoremail'];
     $subject = 'Student Drop Request - Information Need From You (Form ID: ' . $data['id'] . ')';
-    $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ForsythTech Records Office <' . EMAIL_RECORDS . '>' . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = $data['firstname'] . ' ' . $data['lastname'] . ' has requested to drop from your course ' . $data['course'] . '.' . "<br>\r\n" .
@@ -108,10 +122,15 @@ function instructor_request($data) {
 function instructor_confirmation($data) {
     global $config;
 
+    if (empty($data['instructoremail'])){
+        writelog($data['id'], 'No Instructor email set.');
+        return false;
+    }
+    
     $emailTo = $data['instructoremail'];
     $subject = 'Drop Form Information Received: Form ' . $data['id'];
-    $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ForsythTech Records Office <' . EMAIL_RECORDS . '>' . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'Hi ' . $data['instructorname'] . ',' . "<br>\r\n" .
@@ -137,8 +156,9 @@ function instructor_confirmation($data) {
 function records_alert($data) {
     global $config;
 
+    if (!isset($config['recordsemail'])) return false;
+    
     //Append to subject line which range the last name falls under.
-    //Yes, I'm proud of this one.
     $range = '';
     foreach ($view_filters as $key => $value) {
         $lower = substr($key, 0);
@@ -150,8 +170,8 @@ function records_alert($data) {
 
     $emailTo = implode(',', explode("\n", $config['recordsemail']));
     $subject = 'New Drop Form: Form ' . $data['id'] . ', Scope ' . $range;
-    $headers = 'From: WebMaster <webmaster@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ' . EMAIL_FROM . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'There is a new drop request waiting to be processed.' . "<br>\r\n" .
@@ -172,10 +192,15 @@ function records_alert($data) {
 function student_processed($data) {
     global $config;
 
+    if (empty($data['studentemail'])){
+        writelog($data['id'], 'No Student email set.');
+        return false;
+    }
+    
     $emailTo = $data['studentemail'];
     $subject = 'Online Drop Form Processed: ' . $data['id'];
-    $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ' . EMAIL_RECORDS . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'Hi ' . $data['firstname'] . ',' . "<br>\r\n" .
@@ -195,10 +220,15 @@ function student_processed($data) {
 function instructor_processed($data) {
     global $config;
 
+    if (empty($data['instructoremail'])){
+        writelog($data['id'], 'No Instructor email set.');
+        return false;
+    }
+    
     $emailTo = $data['instructoremail'];
     $subject = 'Online Drop Form Processed: ' . $data['id'];
-    $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-            'Reply-To: no-reply@forsythtech.edu' . "\r\n" .
+    $headers = 'From: ' . EMAIL_RECORDS . "\r\n" .
+            'Reply-To: ' . EMAIL_REPLY . "\r\n" .
             'MIME-Version: 1.0' . "\r\n" .
             'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
     $message = 'Hi ' . $data['instructorname'] . ',' . "<br>\r\n" .
@@ -249,10 +279,10 @@ function deans_email($division, $dataset) {
      } else {
          return false;
      }
-
+     
      $subject = 'List of Processed Online Drop Forms';
-     $headers = 'From: ForsythTech Records Office <records@forsythtech.edu>' . "\r\n" .
-             'Reply-To: records@forsythtech.edu' . "\r\n" .
+     $headers = 'From: ' . EMAIL_RECORDS . "\r\n" .
+             'Reply-To: ' . EMAIL_RECORDS . "\r\n" .
              'MIME-Version: 1.0' . "\r\n" .
              'Content-Type: text/html; charset=ISO-8859-1' . "\r\n";
      $message = 'Hi ' . $division . ' Division,' . "<br>\r\n" .

@@ -26,6 +26,7 @@ $query = "SELECT division FROM divisions WHERE division != ? AND semester = ? GR
 $params = array('', $semester);
 $results = $mysql->rawQuery($query, $params);
 foreach ($results as $result) {
+    if ($result['division'] == 'BIT;BIT;') continue; //Receiving bad data from Colleague, whole thing needs to be rewritten
     $divisions[$result['division']] = $config['deanfor' . strtolower($result['division'])];
 }
 

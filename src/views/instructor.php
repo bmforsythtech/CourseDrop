@@ -1,7 +1,7 @@
 <div class="row">
     <div class="large-16 columns">
         <h4>Drop a student</h4>
-        <p>Select a course.</p>
+        <p>Select a course.  Semester: <?php echo $semester; ?></p>
         <ul>
             <?php
             foreach ($data as $row) {

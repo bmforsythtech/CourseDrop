@@ -7,7 +7,7 @@
 <form action="admin.php" method="post">
     <div class="row">
         <div class="large-12 columns">
-            <label for="sid">Become user (Paste employee/student ID)</label>
+            <label for="sid">Switch to user (Paste employee/student ID)</label>
             <input type="text" name="sid" id="sid">
         </div>
         <div class="large-4 columns">

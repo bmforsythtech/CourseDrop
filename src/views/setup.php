@@ -8,17 +8,46 @@
 <form action="setup.php" method="post">
     <div class="row">
         <div class="large-16 columns">
+            <h5>Term</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-8 columns">
+            <label for="close">Semester</label>
+            <select name="semester" id="semester">
+                <option value="SP"<?php if($config['semester'] == 'SP') echo ' selected'; ?>>Spring</option>
+                <option value="SU"<?php if($config['semester'] == 'SU') echo ' selected'; ?>>Summer</option>
+                <option value="FA"<?php if($config['semester'] == 'FA') echo ' selected'; ?>>Fall</option>
+            </select>
+        </div>
+        <div class="large-8 columns">
+            <label for="open">Year</label>
+            <input type="text" name="year" id="year" value="<?php echo $config['year']; ?>" required pattern="\d\d\d\d">
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-16 columns">
             <h5>Open/Close Dates</h5>
         </div>
     </div>
     <div class="row">
         <div class="large-8 columns">
-            <label for="open">Open</label>
+            <label for="open">Student Open</label>
             <input type="text" name="open" id="open" value="<?php echo $config['open']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
         <div class="large-8 columns">
-            <label for="close">Close</label>
+            <label for="close">Student Close</label>
             <input type="text" name="close" id="close" value="<?php echo $config['close']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-8 columns">
+            <label for="open">Instructor Open</label>
+            <input type="text" name="iopen" id="iopen" value="<?php echo $config['iopen']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
+        </div>
+        <div class="large-8 columns">
+            <label for="close">Instructor Close</label>
+            <input type="text" name="iclose" id="iclose" value="<?php echo $config['iclose']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
     </div>
     <div class="row">
@@ -45,6 +74,7 @@
     <div class="row">
         <div class="large-16 columns">
             <h5>Email's</h5>
+            <p>Leave blank to disable.</p>
         </div>
     </div>
     <div class="row">
@@ -74,6 +104,12 @@
         'dateFormat': 'm/d/Y'
     });
     new datepickr('close', {
+        'dateFormat': 'm/d/Y'
+    });
+    new datepickr('iopen', {
+        'dateFormat': 'm/d/Y'
+    });
+    new datepickr('iclose', {
         'dateFormat': 'm/d/Y'
     });
     new datepickr('wpcutoff', {

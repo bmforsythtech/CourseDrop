@@ -1,0 +1,9 @@
+EXTERNAL_PERSON_KEY|USER_ID|SYSTEM_ROLE|FIRSTNAME|LASTNAME|EMAIL|INSTITUTION_ROLE|STUDENT_ID|GENDER|ROW_STATUS
+0000001|instructor1|none|Instructor|One|fake1@email.com||0000001|M|enabled
+0000002|instructor2|none|Instructor|Two|fake2@email.com||0000002|M|enabled
+0000003|instructor3|none|Instructor|Three|fake3@email.com||0000003|M|enabled
+0000004|instructor4|none|Instructor|Four|fake4@email.com||0000004|M|enabled
+0000005|student1|none|Student|One|fake5@email.com||0000005|M|enabled
+0000006|student2|none|Student|Two|fake5@email.com||0000006|M|enabled
+0000007|student3|none|Student|Three|fake5@email.com||0000007|M|enabled
+0000008|student4|none|Student|Four|fake5@email.com||0000008|M|enabled

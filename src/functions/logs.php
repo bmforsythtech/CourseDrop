@@ -41,4 +41,21 @@ function writeerror($message) {
     return $mysql->insert('errorlogs', $data);
 }
 
+function status($action, $info) {
+    global $mysql;
+    
+    $data['action'] = $message;
+    $data['data'] = $info;
+    $data['time'] = time();
+
+    if (!empty($_SESSION['sid']))
+        $data['studentid'] = $_SESSION['sid'];
+    if (!empty($_SESSION['username']))
+        $data['username'] = $_SESSION['username'];
+    if (!empty($_SERVER['REMOTE_ADDR']))
+        $data['ip'] = $_SERVER['REMOTE_ADDR'];
+
+    return $mysql->insert('status', $data);
+}
+
 ?>
