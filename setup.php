@@ -9,7 +9,9 @@ if (!empty($_POST)){
     foreach ($config as $key=>$value){
         if (isset($_POST[$key])){
             $mysql->where('ckey', $key);
-            $mysql->update('config', array('value' => $_POST[$key]));
+            if (!$mysql->update('config', array('value' => $_POST[$key]))){
+                $mysql->insert('config', array('ckey' => $key, 'value' => $_POST[$key]));
+            }
         }
     }
     

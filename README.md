@@ -1,7 +1,21 @@
 CourseDrop
 ==========
 
-Introduction:
+Installation:
+
+- Navigate to your web root directory.
+- Extract files or clone from git
+    - $ git clone https://github.com/bmforsythtech/CourseDrop
+- Create MySQL database (Ex. coursedrop).
+- Import the table structure from the file install/mysql.sql to your database.
+    - $ mysql -u username -p -h localhost DATA-BASE-NAME < install/mysql.sql 
+- Copy 'config.example.php' to 'config.php'.
+- Modify 'config.php' to your environment.
+- Open up browser window and navigate to your web server and path where you installed (Ex. www.yourschool.edu/CourseDrop)
+- Attempt to log in using an Active Directory login.  This will allow you to test the LDAP integration.
+
+
+Additional Information:
 This software is not intended to be a drop in installation.  It will require
 customization to fit your environment.
 

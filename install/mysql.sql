@@ -232,21 +232,16 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `config` (`ckey`, `value`) VALUES
 ('open', '08/28/2014'),
-('close', '12/03/2014'),
-('wpcutoff', '10/20/2014'),
-('wfcutoff', '10/20/2014'),
+('close', '12/03/3014'),
+('wpcutoff', '10/20/3014'),
+('wfcutoff', '10/20/3014'),
 ('closedMessage', ''),
-('deanforetd', ''),
-('deanforbit', ''),
-('deanforhss', ''),
-('deanforhtd', ''),
-('deanformst', ''),
 ('studentservicesemail', ''),
 ('veteransemail', ''),
 ('recordsemail', ''),
 ('year', '2014'),
 ('iopen', '08/28/2014'),
-('iclose', '12/18/2014'),
+('iclose', '12/18/3014'),
 ('semester', 'FA');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
