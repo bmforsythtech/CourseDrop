@@ -43,8 +43,6 @@ include(DIR_VIEWS . 'header.php');
 
 if (empty($data)) {
     include(DIR_VIEWS . 'form.empty.php');
-} elseif (count($droppedCourses) == count($data)) {
-    include(DIR_VIEWS . 'form.history.php');
 } else {
     include(DIR_VIEWS . 'form.php');
 }

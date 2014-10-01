@@ -31,7 +31,11 @@ if (isset($_POST['submit'])) {
         'status_code' => '2',
         'rdue' => time() + ALERT_INT
     );
-
+    
+    //Hot fix for instructor confirmation email missing grade and last date of attendance.
+    $_SESSION['courseinfo']['grade'] = $data['grade'];
+    $_SESSION['courseinfo']['lastdate'] = $data['lastdate'];
+    
     $mysql->where('tuid', $_SESSION['tuid']);
     $result = $mysql->update('forms', $data);
 

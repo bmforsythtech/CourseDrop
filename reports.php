@@ -6,7 +6,7 @@ require_once(DIR_INCLUDES . 'admin.php');
 
 if (!empty($_GET['semester'])) {
     //Get course information from database
-    $query = "SELECT id,status,semester,firstname,lastname,studentemail,studentid,username,phone,course,course_name,reasons,grade,lastdate,comments,instructorid,instructorname,instructoremail,officialwithdrawal FROM forms WHERE semester = ? AND deleted = ? ORDER BY id";
+    $query = "SELECT id,status,semester,firstname,lastname,studentemail,studentid,username,phone,course,course_name,division,reasons,grade,lastdate,comments,instructorid,instructorname,instructoremail,officialwithdrawal FROM forms WHERE semester = ? AND deleted = ? ORDER BY id";
 
     $params = array($_GET['semester'], 0);
     $results = $mysql->rawQuery($query, $params);

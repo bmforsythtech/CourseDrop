@@ -37,9 +37,9 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
     $query = "SELECT division FROM divisions WHERE semester = ? AND course = ?";
 
     $params = array($semester, $cresult[0]['course']);
-    $dresult = $mysql->rawQuery($query, $params);
+    $divresult = $mysql->rawQuery($query, $params);
     
-    if(empty($dresult[0]['division'])) $dresult[0]['division'] = '';
+    if(empty($divresult[0]['division'])) $divresult[0]['division'] = '';
 
     //Duplicate Check
     $query = "SELECT id FROM forms WHERE semester = ? AND course = ? AND studentid = ?";
@@ -70,7 +70,7 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
     $data['tuid'] = md5(uniqid(rand(), true));
     $data['idue'] = mktime(date("H"), date("i"), date("s"), date("n"), date("j") + 1, date("Y"));
     $data['veteran'] = $_SESSION['veteran'];
-    $data['division'] = $dresult[0]['division'];
+    $data['division'] = $divresult[0]['division'];
     
     //The MYSQL insert class/function fails on null varibles
     foreach ($data as $key=>$value){

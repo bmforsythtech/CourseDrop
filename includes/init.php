@@ -16,11 +16,11 @@ require_once(DIR_FUNCTIONS . 'logs.php');
 
 //Check to see if user is logged in, if not redirect to login page.
 if ($_SESSION['auth'] != 1 && 
-    basename($_SERVER['SCRIPT_FILENAME']) != 'index.php' &&
+    basename($_SERVER['SCRIPT_FILENAME']) != 'login.php' &&
     basename($_SERVER['SCRIPT_FILENAME']) != 'instructor_request.php'
 ) {
     $_SESSION['return_url'] = basename($_SERVER['PHP_SELF']) . '?' . $_SERVER['QUERY_STRING'];
-    header('Location: index.php');
+    header('Location: login.php');
     die();
 }
 

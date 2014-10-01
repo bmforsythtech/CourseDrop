@@ -5,14 +5,10 @@ define('MY_USER', 'coursedrop');
 define('MY_PASS', 'password');
 define('MY_DATA', 'coursedrop');
 
-define('LDAP_IP', '127.0.0.1');
-define('LDAP_BASEDN', 'cn=Users,dc=domain,dc=edu');
-define('LDAP_BINDPW', 'password');
-define('LDAP_SEARCHDN', 'ou=Users,dc=domain,dc=edu');
-define('LDAP_SERVER', '127.0.0.1');
-define('LDAP_PRN', 'domain' . "\\");
+define('LDAP_SERVER', 'ldap://127.0.0.1');
 define('LDAP_PORT', '389');
-define('LDAP_DN', 'ou=Users,dc=domain,dc=edu');
+define('LDAP_SEARCHDN', 'ou=Users,dc=domain,dc=edu');
+define('LDAP_PRN', 'domain' . "\\");
 define('LDAP_FILTER', 'sAMAccountName');
 
 define('DIR_VIEWS', 'views/');
@@ -30,6 +26,7 @@ define('DEBUG_EMAILS', "admin1@domain.edu,admin2@domain.edu");
 define('DEBUG_FROM', 'webmaster@domain.edu');
 define('DEBUG', false);
 
+// Array of LDAP accounts desinated as admins
 $admins = array(
     'admin1',
     'admin2'

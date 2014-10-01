@@ -20,7 +20,7 @@
                         <tr>
                             <td><?php
                             if (in_array($row['course'], $droppedCourses)) {
-                                echo 'Not Eligible<br />Pending Drop';
+                                echo 'Request Sent';
                             } elseif ($row['end_date'] < time()) {
                                 echo 'Not Eligible<br />Ended ' . date('m/d/y', $row['end_date']);
                             } else {
