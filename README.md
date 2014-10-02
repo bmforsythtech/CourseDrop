@@ -32,8 +32,8 @@ Developed using the Foundation (ZURB) front-end framework (http://foundation.zur
     <ul>
     <li>$ mysql -u username -p -h localhost DATA-BASE-NAME < install/mysql.sql</li>
     </ul>
-<li>Copy 'config.example.php' to 'config.php'.</li>
-<li>Modify 'config.php' to your environment. Be sure to add your Active Directory account to the admin list.</li>
+<li>Copy <b>config.example.php</b> to <b>config.php</b>.</li>
+<li>Modify <b>config.php</b> to your environment. Be sure to add your Active Directory account to the admin list.</li>
 <li>Open up browser window and navigate to your web server and path where you installed (Ex. www.yourschool.edu/CourseDrop)</li>
 <li>Attempt to log in using an Active Directory login.  This will allow you to test the LDAP integration.</li>
 <li>After successful login, run the import script to load sample data into the database.</li>
@@ -41,12 +41,9 @@ Developed using the Foundation (ZURB) front-end framework (http://foundation.zur
     <li>$ php cron/import.php</li>
     </ul>
 <li>In the web interface, click on the "Admin" link in the header menu.</li>
-<li>Type in '0000006' in the switch to user text box and click "Switch User".  This allows you to emulate your session as another user.  By doing this, you are now viewing the course drop system as if you were the student with the id of 0000006.  Because of the sample data, you should now see the drop form as if you were the student, and one enrollment listed, 'ACA-085-800B'.  You can test the drop process via this method.</li>
+<li>Type in <b>0000006</b> in the switch to user text box and click <b>Switch User</b>.  This allows you to emulate your session as another user.  By doing this, you are now viewing the course drop system as if you were the student with the id of 0000006.  Because of the sample data, you should now see the drop form as if you were the student, and one enrollment listed, <b>ACA-085-800B</b>.  You can test the drop process via this method.</li>
 <li>You will now need to customize the code to fit your environment.</li>
 </ul>
-
-Files located in the root directory serve as the Model/Controller.  Files
-located in the 'views' folder contain the HTML output.
 
 <h3>Customization</h3>
 
@@ -57,6 +54,9 @@ Files to modify:
 <li>stylesheets/app.css</li>
 <li>functions/email.php</li>
 </ul>
+
+Files located in the root directory serve as the Model/Controller.  Files
+located in the views folder contain the HTML output.
 
 <h3>Data Feed</h3>
 
@@ -69,6 +69,8 @@ There are 6 files the web application is expecting:
 <li>Divisions - List of courses and assigned divisions</li>
 <li>NoDrops - List of students not eligible to use this web application</li>
 </ul>
+
+Example data is included in the import folder.
 
 <h3>Data Import</h3>
 
@@ -90,3 +92,7 @@ All email verbiage is located in the functions/emails.php file.
 
 The file 'cron/cron.php' is used to send email reminders.  There needs to be a
 cron job to execute this file hourly.
+
+<h3>Support</h3>
+
+Support is not provided.  Use at your own risk.
