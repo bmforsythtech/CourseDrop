@@ -17,7 +17,7 @@ Built and Tested on:
 
 <h3>Web App</h3>
 
-Developed using the Foundation (ZURB) front-end framework (http://www.zurb.com).
+Developed using the Foundation (ZURB) front-end framework (http://foundation.zurb.com).
 
 <h3>Installation</h3>
 
