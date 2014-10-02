@@ -72,6 +72,8 @@ There are 6 files the web application is expecting:
 
 Example data is included in the import folder.
 
+Idealy you would want these files to be updated frequently.
+
 <h3>Data Import</h3>
 
 The file 'import.php' located in the 'cron' folder handles the import process.
