@@ -25,12 +25,12 @@ Developed using the Foundation (ZURB) front-end framework (http://foundation.zur
 <li>Navigate to your web root directory.
 <li>Extract files or clone from git
     <ul>
-    <li>$ git clone https://github.com/bmforsythtech/CourseDrop</li>
+    <li>```$ git clone https://github.com/bmforsythtech/CourseDrop```</li>
     </ul>
 <li>Create MySQL database (Ex. coursedrop).
 <li>Import the table structure from the file install/mysql.sql to your database.
     <ul>
-    <li>$ mysql -u username -p -h localhost DATA-BASE-NAME < install/mysql.sql</li>
+    <li>```$ mysql -u username -p -h localhost DATA-BASE-NAME < install/mysql.sql```</li>
     </ul>
 <li>Copy <b>config.example.php</b> to <b>config.php</b>.</li>
 <li>Modify <b>config.php</b> to your environment. Be sure to add your Active Directory account to the admin list.</li>
