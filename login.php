@@ -33,7 +33,7 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
             
             //Strip all extra info.
             $matches = array();
-            if (preg_match('/^(\d+)/', $info[$i]["description"][0], $matches)){
+            if (preg_match('/^(\d+)/', $info[$i][LDAP_ID][0], $matches)){
                 $sid = $matches[1];
             } else {
                 array_push($errors, 'Could not find ID.  Please contact the Records Office.');
@@ -50,7 +50,7 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
             $_SESSION['auth'] = 1;
             
             foreach ($info[$i]['memberof'] as $disgroups) {
-                if (preg_match('/CN=const-administration/i', $disgroups)) {
+                if (preg_match('/CN=' . LDAP_INSTRUCTOR . '/i', $disgroups)) {
                     $_SESSION['instructor'] = 1;
                 }
             }

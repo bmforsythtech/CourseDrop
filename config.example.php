@@ -11,6 +11,9 @@ define('LDAP_SEARCHDN', 'ou=Users,dc=domain,dc=edu');
 define('LDAP_PRN', 'domain' . "\\");
 define('LDAP_FILTER', 'sAMAccountName');
 
+define('LDAP_ID', 'employeeID'); //Active Directory attribute where you student/employee ID's are stored.
+define('LDAP_INSTRUCTOR', 'LDAPGroupName'); //If the user is in this active directory group, they will be logged in as an Instructor
+
 define('DIR_VIEWS', 'views/');
 define('DIR_CLASSES', 'classes/');
 define('DIR_FUNCTIONS', 'functions/');
