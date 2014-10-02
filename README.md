@@ -72,7 +72,7 @@ There are 6 files the web application is expecting:
 
 Example data is included in the import folder.
 
-Idealy you would want these files to be updated frequently.
+Idealy you would want these files to be updated frequently from your source.
 
 <h3>Data Import</h3>
 
