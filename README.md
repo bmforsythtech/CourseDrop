@@ -1,5 +1,4 @@
-CourseDrop
-==========
+<h1>CourseDrop</h1>
 
 Installation:
 
@@ -30,8 +29,7 @@ Apache 2.2
 MySQL 5.1
 PHP 5.3
 
-Web App
-===
+<h3>Web App</h3>
 
 Developed using the Foundation (ZURB) front-end framework (zurb.com).
 
