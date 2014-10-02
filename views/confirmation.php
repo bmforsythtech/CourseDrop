@@ -3,7 +3,7 @@
         <h4>Confirmation</h4>
         <?php if (!empty($_SESSION['form_ids'])) { ?>
             <div class="alert-box success">
-                Your request to drop the following course(s) was sucessfully submitted.<br /><br />You will receive a confirmation email once the form has been reviewed and processed.
+                Your request to drop the following course(s) was successfully submitted.<br /><br />You will receive a confirmation email once the form has been reviewed and processed.
             </div>
         <?php } ?>
         <table style="width: 100%;">

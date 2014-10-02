@@ -68,6 +68,7 @@
             <input name="reasons_other" type="text" value="" />
         </div>
     </div>
+    <?php if (!empty($config['veteransemail'])){ ?>
     <div class="row">
         <div class="large-16 columns">
             <h5>Receiving VA Education Benefits (Montgomery GI Bill, Post 9/11, etc)?:</h5>
@@ -79,6 +80,7 @@
             <input type="radio" name="veteran" value="no" required> No
         </div>
     </div>
+    <?php } ?>
     <div class="row">
         <div class="large-16 columns">
             <hr />

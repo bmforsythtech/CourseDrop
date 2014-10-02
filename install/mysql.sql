@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
   `deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `Form Search` (`semester`,`course`,`studentid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000 ;
 
 -- --------------------------------------------------------
 

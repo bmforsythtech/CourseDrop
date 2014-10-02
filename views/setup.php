@@ -32,27 +32,27 @@
     </div>
     <div class="row">
         <div class="large-8 columns">
-            <label for="open">Student Open</label>
+            <label for="open">Student Open (Students can access this system after this date).</label>
             <input type="text" name="open" id="open" value="<?php echo $config['open']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
         <div class="large-8 columns">
-            <label for="close">Student Close</label>
+            <label for="close">Student Close (Students will not be able to access this system after this date).</label>
             <input type="text" name="close" id="close" value="<?php echo $config['close']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
     </div>
     <div class="row">
         <div class="large-8 columns">
-            <label for="open">Instructor Open</label>
+            <label for="open">Instructor Open (Instructors can access this system after this date).</label>
             <input type="text" name="iopen" id="iopen" value="<?php echo $config['iopen']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
         <div class="large-8 columns">
-            <label for="close">Instructor Close</label>
+            <label for="close">Instructor Close (Instructors will not be able to access this system after this date).</label>
             <input type="text" name="iclose" id="iclose" value="<?php echo $config['iclose']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
     </div>
     <div class="row">
-        <div class="large-8 columns">
-            <label for="closedMessage">Closed Message</label>
+        <div class="large-16 columns">
+            <label for="closedMessage">Closed Message (If current date is past the close date, this message will be displayed).</label>
             <textarea rows="6" name="closedMessage" id="closedMessage"><?php echo $config['closedMessage']; ?></textarea>
         </div>
     </div>
@@ -63,34 +63,34 @@
     </div>
     <div class="row">
         <div class="large-8 columns">
-            <label for="wpcutoff">Withdrawal Passing</label>
+            <label for="wpcutoff">Withdrawal Passing (Disables WP option after this date)</label>
             <input type="text" name="wpcutoff" id="wpcutoff" value="<?php echo $config['wpcutoff']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
         <div class="large-8 columns">
-            <label for="wfcutoff">Withdrawal Failing</label>
+            <label for="wfcutoff">Withdrawal Failing (Disables WF option after this date)</label>
             <input type="text" name="wfcutoff" id="wfcutoff" value="<?php echo $config['wfcutoff']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
     </div>
     <div class="row">
         <div class="large-16 columns">
             <h5>Email's</h5>
-            <p>Leave blank to disable.</p>
+            <p>Leave blank to disable.  Separate by line breaks in multi-line fields.</p>
         </div>
     </div>
     <div class="row">
         <div class="large-8 columns">
             <?php foreach ($divisions as $division=>$email) { ?>
             <label for="deanfor<?php echo strtolower($division); ?>"><?php echo $division; ?> Division</label>
-            <input type="text" name="deanfor<?php echo strtolower($division); ?>" id="deanfor<?php echo strtolower($division); ?>" value="<?php echo $email; ?>" required pattern="^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
+            <input type="text" name="deanfor<?php echo strtolower($division); ?>" id="deanfor<?php echo strtolower($division); ?>" value="<?php echo $email; ?>" pattern="^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$">
             <?php } ?>
         </div>
         <div class="large-8 columns">
             <label for="recordsemail">Records</label>
-            <textarea name="recordsemail" id="recordsemail" rows="3" required><?php echo $config['recordsemail']; ?></textarea>
+            <textarea name="recordsemail" id="recordsemail" rows="3"><?php echo $config['recordsemail']; ?></textarea>
             <label for="studentservicesemail">Student Services</label>
-            <textarea name="studentservicesemail" id="studentservicesemail" rows="3" required><?php echo $config['studentservicesemail']; ?></textarea>
+            <textarea name="studentservicesemail" id="studentservicesemail" rows="3"><?php echo $config['studentservicesemail']; ?></textarea>
             <label for="veteransemail">Veterans</label>
-            <textarea name="veteransemail" id="veteransemail" rows="3" required><?php echo $config['veteransemail']; ?></textarea>
+            <textarea name="veteransemail" id="veteransemail" rows="3"><?php echo $config['veteransemail']; ?></textarea>
         </div>
     </div>
     <div class="row">

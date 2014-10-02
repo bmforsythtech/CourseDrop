@@ -51,7 +51,7 @@
             </ul>
         </div>
     </div>
-<?php if (!empty($_SESSION['droppingAll'])) { ?>
+<?php if (!empty($_SESSION['droppingAll']) && !empty($config['studentservicesemail'])) { ?>
         <div class="row">
             <div class="large-16 columns">
                 <h5>You are dropping all of your courses for this semester:</h5>

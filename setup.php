@@ -5,16 +5,19 @@ require_once(DIR_INCLUDES . 'init.php');
 require_once(DIR_INCLUDES . 'admin.php');
 
 if (!empty($_POST)){
-    $data = array();
     foreach ($config as $key=>$value){
         if (isset($_POST[$key])){
             $mysql->where('ckey', $key);
-            if (!$mysql->update('config', array('value' => $_POST[$key]))){
-                $mysql->insert('config', array('ckey' => $key, 'value' => $_POST[$key]));
-            }
+            $mysql->update('config', array('value' => $_POST[$key]));
         }
     }
     
+    foreach ($_POST as $key=>$value){
+        if (!isset($config[$key])){
+            $mysql->insert('config', array('ckey' => $key, 'value' => $_POST[$key]));
+        }
+    }
+
     writelog(NULL, print_r($_POST, TRUE));
     
     $_SESSION['messages'][] = 'Settings saved.';

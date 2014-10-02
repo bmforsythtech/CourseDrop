@@ -2,7 +2,7 @@
 
 define("SCRIPT_TIMEOUT", 3540); //In seconds.
 define("MEMORY_LIMIT", "256M");
-define("IMPORT_DIR", "/home/coursedrop/import"); //Directory to process CSV files from.  No trailing slash.
+define("IMPORT_DIR", "import"); //Directory to process CSV files from.  No trailing slash.
 define("PROCESS_FILES", 86400); //Only process files that were imported in the last 3600 seconds (hour).
 define("USERS_FILE", "USER");
 define("INSTRUCT_FILE", "INSTRUCTOR");
