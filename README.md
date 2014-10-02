@@ -95,8 +95,4 @@ cron job to execute this file hourly.
 
 <h3>Support</h3>
 
-<<<<<<< HEAD
 Support is not provided.  Use at your own risk.
-=======
-Support is not provided.  Use at your own risk.
->>>>>>> origin/master
