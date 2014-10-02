@@ -31,6 +31,8 @@ MySQL 5.1
 PHP 5.3
 
 Web App
+===
+
 Developed using the Foundation (ZURB) front-end framework (zurb.com).
 
 Installation
