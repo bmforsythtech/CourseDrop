@@ -74,9 +74,12 @@ Example data is included in the import folder.
 
 Idealy you would want these files to be updated frequently from your source.
 
+We have our Informer server set up to push these files to the Course Drop server
+via a scheduled rsync command.
+
 <h3>Data Import</h3>
 
-The file 'import.php' located in the 'cron' folder handles the import process.
+The file <b>import.php</b> located in the <b>cron</b> folder handles the import process.
 This file looks for files in a specified directory, parses each file, and
 inserts/updates the database as necessary.
 
@@ -84,7 +87,7 @@ There needs to be a cron job to execute this file hourly.
 
 <h3>Database</h3>
 
-See the 'install/mysql.sql' file for the database structure.
+See the <b>install/mysql.sql</b> file for the database structure.
 
 <h3>Emails</h3>
 
@@ -92,8 +95,18 @@ All email verbiage is located in the functions/emails.php file.
 
 <h3>Maintenance</h3>
 
-The file 'cron/cron.php' is used to send email reminders.  There needs to be a
+The file <b>cron/cron.php</b> is used to send email reminders.  There needs to be a
 cron job to execute this file hourly.
+
+<h3>.htaccess</h3>
+
+Included in this package is a .htaccess file located in the root folder.  It
+forces HTTPS on the end user and blocks access to the folders <b>cron</b>,
+<b>import</b>, <b>install</b>.
+
+<h3>Flowchart</h3>
+
+A high level flow chart is located in the <b>install</b> folder.
 
 <h3>Support</h3>
 
