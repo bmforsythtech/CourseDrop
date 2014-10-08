@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/javascripts/datepickr.min.js"></script>
+<script type="text/javascript" src="javascripts/datepickr.min.js"></script>
 <div class="row">
     <div class="large-16 columns">
         <h3>Setup</h3>

@@ -55,7 +55,7 @@ chdir('..');
 date_default_timezone_set('America/New_York');
 
 $errors = array();
-$debug = false;
+$debug = DEBUG;
 
 include_once('config.php');
 include_once(DIR_CLASSES .'/mysql.php');
