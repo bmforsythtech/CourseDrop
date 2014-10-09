@@ -22,7 +22,7 @@ if (isset($_GET['c']) && !empty($_GET['c'])) {
     $data = $mysql->rawQuery($query, $params);
 
     $processed = array();
-    $query = "SELECT studentid FROM forms WHERE course = ? AND semester = ?";
+    $query = "SELECT studentid FROM forms WHERE course = ? AND semester = ? AND deleted = 0";
 
     $params = array($_SESSION['icourse'], $semester);
     $results = $mysql->rawQuery($query, $params);
