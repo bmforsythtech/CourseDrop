@@ -25,7 +25,7 @@ $results = $mysql->rawQuery($query, $params);
 
 if (!empty($results)){
     include(DIR_VIEWS . 'header.php');
-    include(DIR_VIEWS . 'form.empty.php');
+    include(DIR_VIEWS . 'form.nodrop.php');
     include(DIR_VIEWS . 'footer.php');
     exit();
 }
