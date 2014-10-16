@@ -58,16 +58,16 @@
     </div>
     <div class="row">
         <div class="large-16 columns">
-            <h5>Grade Option Cutoffs</h5>
+            <h5>Instructor Grade Options</h5>
         </div>
     </div>
     <div class="row">
         <div class="large-8 columns">
-            <label for="wpcutoff">Withdrawal Passing (Disables WP option after this date)</label>
+            <label for="wpcutoff">Withdrawal Passing (Enables WP option after this date)</label>
             <input type="text" name="wpcutoff" id="wpcutoff" value="<?php echo $config['wpcutoff']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
         <div class="large-8 columns">
-            <label for="wfcutoff">Withdrawal Failing (Disables WF option after this date)</label>
+            <label for="wfcutoff">Withdrawal Failing (Enables WF option after this date)</label>
             <input type="text" name="wfcutoff" id="wfcutoff" value="<?php echo $config['wfcutoff']; ?>" required pattern="\d\d\/\d\d\/\d\d\d\d">
         </div>
     </div>

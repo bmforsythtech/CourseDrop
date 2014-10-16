@@ -30,12 +30,12 @@
                                     <option value=""></option>
                                     <option value="W">W</option>
                                     <?php
-                                    if (strtotime($config['wpcutoff']) > time()) {
+                                    if (time() > strtotime($config['wpcutoff'])) {
                                         echo '<option value="WP">WP</option>';
                                     }
                                     ?>
                                     <?php
-                                    if (strtotime($config['wfcutoff']) > time()) {
+                                    if (time() > strtotime($config['wfcutoff'])) {
                                         echo '<option value="WF">WF</option>';
                                     }
                                     ?>
