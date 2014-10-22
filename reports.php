@@ -5,6 +5,9 @@ require_once(DIR_INCLUDES . 'init.php');
 require_once(DIR_INCLUDES . 'admin.php');
 
 if (!empty($_GET['semester'])) {
+    //Uses a lot of memory
+    ini_set('memory_limit','256M');
+    
     //Get course information from database
     $query = "SELECT id,status,semester,firstname,lastname,studentemail,studentid,username,phone,course,course_name,division,reasons,grade,lastdate,comments,instructorid,instructorname,instructoremail,officialwithdrawal FROM forms WHERE semester = ? AND deleted = ? ORDER BY id";
 
