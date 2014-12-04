@@ -5,11 +5,14 @@
         </div>
         <div class="large-6 columns" style="text-align:right;">
             <div class="row collapse postfix-round">
-                <div class="small-12 columns">
+                <div class="small-8 columns">
                     <input type="text" name="search" value="<?php echo $_SESSION['filter']['search']; ?>" placeholder="Last name or SID" />
                 </div>
                 <div class="small-4 columns">
-                  <input type="submit" value="Search" class="button postfix" />
+                    <input type="submit" value="Search" class="button postfix" />
+                </div>
+                <div class="small-4 columns">
+                    <input type="submit" name="reset" value="Reset" class="tiny secondary button" />
                 </div>
             </div>
         </div>
