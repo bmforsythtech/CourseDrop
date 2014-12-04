@@ -4,6 +4,9 @@ require_once('config.php');
 require_once(DIR_INCLUDES . 'init.php');
 require_once(DIR_INCLUDES . 'admin.php');
 
+//Don't reuse search
+unset($_SESSION['filter']['search']);
+
 //Page filters
 if (isset($_GET['filter']))
     $_SESSION['filter']['filter'] = $_GET['filter'];
@@ -11,6 +14,8 @@ if (isset($_GET['status']))
     $_SESSION['filter']['status'] = $_GET['status'];
 if (isset($_GET['semester']))
     $_SESSION['filter']['semester'] = $_GET['semester'];
+if (isset($_GET['search']))
+    $_SESSION['filter']['search'] = trim($_GET['search']);
 //Get list of semesters
 $query = "SELECT semester FROM forms GROUP BY semester ORDER BY id DESC LIMIT 5;";
 $semestersList = $mysql->rawQuery($query);
@@ -118,6 +123,19 @@ if (!empty($data)) {
         $query .= " AND semester = ?";
         $params[] = $_SESSION['filter']['semester'];
     }
+    if (!empty($_SESSION['filter']['semester'])) {
+        $query .= " AND semester = ?";
+        $params[] = $_SESSION['filter']['semester'];
+    }
+    if (!empty($_SESSION['filter']['search'])) {
+        if(preg_match("/^\d+$/", $_SESSION['filter']['search'])) {
+            $query .= " AND studentid = ?";
+            $params[] = $_SESSION['filter']['search'];
+        } else {
+            $query .= " AND lastname = ?";
+            $params[] = $_SESSION['filter']['search'];
+        }
+    }
     $pagesCount = $mysql->rawQuery($query, $params);
     $pages = ceil(($pagesCount[0]['pages']) / 10);
     
@@ -134,6 +152,15 @@ if (!empty($data)) {
     if (!empty($_SESSION['filter']['semester'])) {
         $query .= " AND semester = ?";
         $params[] = $_SESSION['filter']['semester'];
+    }
+    if (!empty($_SESSION['filter']['search'])) {
+        if(preg_match("/^\d+$/", $_SESSION['filter']['search'])) {
+            $query .= " AND studentid = ?";
+            $params[] = $_SESSION['filter']['search'];
+        } else {
+            $query .= " AND lastname = ?";
+            $params[] = $_SESSION['filter']['search'];
+        }
     }
     $query .= " ORDER BY id DESC";
     

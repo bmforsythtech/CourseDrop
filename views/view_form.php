@@ -1,6 +1,22 @@
 <div class="row">
+    <form method="GET">
+        <div class="large-10 columns">
+            <h3>Forms</h3>
+        </div>
+        <div class="large-6 columns" style="text-align:right;">
+            <div class="row collapse postfix-round">
+                <div class="small-12 columns">
+                    <input type="text" name="search" value="<?php echo $_SESSION['filter']['search']; ?>" placeholder="Last name or SID" />
+                </div>
+                <div class="small-4 columns">
+                  <input type="submit" value="Search" class="button postfix" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
     <div class="large-16 columns">
-        <h3>Forms</h3>
         <dl class="sub-nav">
             <dt>Filter:</dt>
             <dd<?php if (empty($_SESSION['filter']['filter'])) echo ' class="active"'; ?>><a href="view_form.php?filter=">All</a></dd>
