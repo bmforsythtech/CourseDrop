@@ -21,6 +21,13 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
 
     $params = array($_SESSION['sid']);
     $sresult = $mysql->rawQuery($query, $params);
+    
+    //Check results
+    if(empty($sresult[0]['firstname'])) $sresult[0]['firstname'] = $_SESSION['firstname'];
+    if(empty($sresult[0]['lastname'])) $sresult[0]['lastname'] = $_SESSION['firstname'];
+    if(empty($sresult[0]['email'])) $sresult[0]['email'] = $_SESSION['email'];
+    if(empty($sresult[0]['user_id'])) $sresult[0]['user_id'] = $_SESSION['sid'];
+    if(empty($sresult[0]['username'])) $sresult[0]['username'] = $_SESSION['username'];
 
     $query = "SELECT C.course, C.name, I.user_id FROM courses C LEFT JOIN instructors I ON C.course = I.course AND C.semester = I.semester WHERE C.course = ? AND C.semester = ?";
 

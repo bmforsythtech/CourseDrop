@@ -87,6 +87,11 @@ function instructor_request($data) {
         return false;
     }
     
+    if ($config['emailInstructors'] == '0'){
+        writelog($data['id'], 'Site configured not to send instructor email.');
+        return false;
+    }
+    
     $emailTo = $data['instructoremail'];
     $subject = 'Student Drop Request - Information Need From You (Form ID: ' . $data['id'] . ')';
     $headers = 'From: ForsythTech Records Office <' . EMAIL_RECORDS . '>' . "\r\n" .
@@ -124,6 +129,11 @@ function instructor_confirmation($data) {
 
     if (empty($data['instructoremail'])){
         writelog($data['id'], 'No Instructor email set.');
+        return false;
+    }
+    
+    if ($config['emailInstructors'] == '0'){
+        writelog($data['id'], 'Site configured not to send instructor email.');
         return false;
     }
     
@@ -222,6 +232,11 @@ function instructor_processed($data) {
 
     if (empty($data['instructoremail'])){
         writelog($data['id'], 'No Instructor email set.');
+        return false;
+    }
+    
+    if ($config['emailInstructors'] == '0'){
+        writelog($data['id'], 'Site configured not to send instructor email.');
         return false;
     }
     

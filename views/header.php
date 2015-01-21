@@ -4,8 +4,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Forsyth Tech - Online Course Withdrawal</title>
-        <link rel="stylesheet" href="stylesheets/foundation.min.css" />
-        <link rel="stylesheet" href="stylesheets/app.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/foundation.min.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/app.css" />
+        <link rel="stylesheet" type="text/css" href="stylesheets/jquery.datetimepicker.css" />
         <script src="javascripts/vendor/modernizr.js"></script>
     </head>
     <body>
