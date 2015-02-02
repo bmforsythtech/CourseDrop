@@ -9,7 +9,7 @@
 <div class="row">
     <section class="large-6 columns">
         <form name="login" action="login.php" method="post">
-            <input type="text" placeholder="TechID" name="username" required />
+            <input type="text" placeholder="TechID" name="username" required autofocus />
             <input type="password" placeholder="Password" name="password" required />
             <input type="submit" value="Login" class="small success radius button" />
         </form>
