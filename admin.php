@@ -5,7 +5,7 @@ require_once(DIR_INCLUDES . 'init.php');
 require_once(DIR_INCLUDES . 'admin.php');
 
 if ($_POST['submit'] == 'Switch User' && !empty($_POST['sid'])) {
-    writelog(NULL, 'Switched to sid: ' . $_POST['sid']);
+    writelog(NULL, 'Switched to sid: ' . $_POST['sid'], 'Admin SID');
     $_SESSION['sid'] = $_POST['sid'];
     header('Location: form.php');
     die();

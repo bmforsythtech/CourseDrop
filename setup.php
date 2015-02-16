@@ -18,7 +18,7 @@ if (!empty($_POST)){
         }
     }
 
-    writelog(NULL, print_r($_POST, TRUE));
+    writelog(NULL, print_r($_POST, TRUE), 'Setup');
     
     $_SESSION['messages'][] = 'Settings saved.';
     header('Location: ' . $_SERVER['PHP_SELF']);
@@ -34,6 +34,11 @@ foreach ($results as $result) {
     if ($result['division'] == 'BIT;BIT;') continue; //Receiving bad data from Colleague, whole thing needs to be rewritten
     $divisions[$result['division']] = $config['deanfor' . strtolower($result['division'])];
 }
+
+//Get log entries
+$query = "SELECT * FROM logs WHERE type = ? ORDER BY time DESC, id DESC LIMIT 20";
+$params = array('Setup');
+$logs = $mysql->rawQuery($query, $params);
 
 include(DIR_VIEWS . 'header.php');
 include(DIR_VIEWS . 'setup.php');

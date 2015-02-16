@@ -157,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `pid` varchar(16) NOT NULL,
   `name` varchar(128) NOT NULL,
   `message` text NOT NULL,
+  `type` varchar(16) DEFAULT NULL,
   `time` int(11) NOT NULL,
   `ip` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)

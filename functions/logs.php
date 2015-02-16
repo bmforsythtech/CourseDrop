@@ -1,6 +1,6 @@
 <?php
 
-function writelog($id, $message) {
+function writelog($id, $message, $type=NULL) {
     global $mysql;
 
     $data = array();
@@ -12,6 +12,7 @@ function writelog($id, $message) {
     $data['form_id'] = $id;
     $data['message'] = $message;
     $data['time'] = time();
+    $data['type'] = $type;
 
     if (!empty($_SESSION['sid']))
         $data['pid'] = $_SESSION['sid'];

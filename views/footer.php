@@ -13,35 +13,43 @@
         $(document).foundation();
         $('#openTime').datetimepicker({
             datepicker:false,
-            format:'H:i'
+            format:'H:i',
+            scrollInput:false
         });
         $('#open').datetimepicker({
             timepicker:false,
-            format:'m/d/Y'
+            format:'m/d/Y',
+            scrollInput:false
         });
         $('#closeTime').datetimepicker({
             datepicker:false,
-            format:'H:i'
+            format:'H:i',
+            scrollInput:false
         });
         $('#close').datetimepicker({
             timepicker:false,
-            format:'m/d/Y'
+            format:'m/d/Y',
+            scrollInput:false
         });
         $('#iopenTime').datetimepicker({
             datepicker:false,
-            format:'H:i'
+            format:'H:i',
+            scrollInput:false
         });
         $('#iopen').datetimepicker({
             timepicker:false,
-            format:'m/d/Y'
+            format:'m/d/Y',
+            scrollInput:false
         });
         $('#icloseTime').datetimepicker({
             datepicker:false,
-            format:'H:i'
+            format:'H:i',
+            scrollInput:false
         });
         $('#iclose').datetimepicker({
             timepicker:false,
-            format:'m/d/Y'
+            format:'m/d/Y',
+            scrollInput:false
         });
     </script>
 </body>
