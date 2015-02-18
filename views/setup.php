@@ -173,7 +173,6 @@
             <th>ID</th>
             <th>Action</th>
             <th>Time</th>
-            <th>IP</th>
             </thead>
             <?php foreach ($logs as $log) { ?>
                 <tr>
@@ -181,7 +180,6 @@
                     <td><?php echo $log['pid']; ?></td>
                     <td><?php echo nl2br($log['message']); ?></td>
                     <td><?php echo date('g:ia m/d/y', $log['time']); ?></td>
-                    <td><?php echo $log['ip']; ?></td>
                 </tr>
             <?php } ?>
         </table>

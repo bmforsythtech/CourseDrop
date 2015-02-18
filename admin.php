@@ -11,6 +11,11 @@ if ($_POST['submit'] == 'Switch User' && !empty($_POST['sid'])) {
     die();
 }
 
+//Get log entries
+$query = "SELECT * FROM logs WHERE type = ? ORDER BY time DESC, id DESC LIMIT 50";
+$params = array('Admin SID');
+$logs = $mysql->rawQuery($query, $params);
+
 include(DIR_VIEWS . 'header.php');
 include(DIR_VIEWS . 'admin.php');
 include(DIR_VIEWS . 'footer.php');
