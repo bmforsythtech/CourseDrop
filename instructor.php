@@ -21,13 +21,14 @@ if (isset($_GET['c']) && !empty($_GET['c'])) {
     $params = array($_SESSION['icourse'], $semester, 'Y');
     $data = $mysql->rawQuery($query, $params);
 
+    $history = array();
     $processed = array();
-    $query = "SELECT studentid FROM forms WHERE course = ? AND semester = ? AND deleted = 0";
+    $query = "SELECT * FROM forms WHERE course = ? AND semester = ? AND deleted = 0";
 
     $params = array($_SESSION['icourse'], $semester);
-    $results = $mysql->rawQuery($query, $params);
+    $history = $mysql->rawQuery($query, $params);
 
-    foreach ($results as $result) {
+    foreach ($history as $result) {
         $processed[] = $result['studentid'];
     }
 } else {

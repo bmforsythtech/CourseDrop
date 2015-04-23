@@ -17,6 +17,16 @@
 </form>
 <div class="row">
     <div class="large-16 columns">
+        <?php if ($_SESSION['instructor'] == 1){ ?>
+        <a href="?action=removeInstructor" class="small success radius button">Switch to Student View</a>
+        <?php } ?>
+        <?php if ($_SESSION['instructor'] == 0){ ?>
+        <a href="?action=addInstructor" class="small success radius button">Switch to Instructor View</a>
+        <?php } ?>
+    </div>
+</div>
+<div class="row">
+    <div class="large-16 columns">
         <h3>Logs</h3>
         <table width="100%">
             <thead>

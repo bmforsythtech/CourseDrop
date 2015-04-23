@@ -33,4 +33,29 @@
             <a href="instructor.php" class="alert radius button">Cancel</a>
         </div>
     </div>
+    <div class="row">
+        <div class="large-16 columns">
+            <h4>History</h4>
+            <table style="width: 100%;">
+                <thead>
+                <th>Form ID</th>
+                <th>Status</th>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($history as $row) {
+                    ?>
+                        <tr>
+                            <td><a href="view_form_instructor.php?id=<?php echo $row['id']; ?>"><?php echo $row['id']; ?></a></td>
+                            <td><?php echo $row['status']; ?></td>
+                            <td><?php echo $row['firstname'] . ' ' . $row['lastname']; ?></td>
+                            <td><?php echo $row['studentid']; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </form>

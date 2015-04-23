@@ -38,3 +38,17 @@ if (isset($config['year']) && isset($config['semester'])){
 } else {
     $_SESSION['errors'][] = 'Year and semeseter need to be configured in the setup screen.';
 }
+
+//Admins do not check setup screen and do not realize when the configuration is incorrect.
+if (
+        $_SESSION['admin'] == 1 &&
+        (strtotime($config['open'] . ' ' . $config['openTime']) > time() || strtotime($config['close'] . ' ' . $config['closeTime']) < time())
+   ) {
+    $_SESSION['messages'][] = 'The Course Drop system is closed to students.';
+}
+if (
+        $_SESSION['admin'] == 1 &&
+        (strtotime($config['iopen'] . ' ' . $config['iopenTime']) > time() || strtotime($config['iclose'] . ' ' . $config['icloseTime']) < time())
+   ) {
+    $_SESSION['messages'][] = 'The Course Drop system is closed to instructors.';
+}

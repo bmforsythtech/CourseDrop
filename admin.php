@@ -11,6 +11,21 @@ if ($_POST['submit'] == 'Switch User' && !empty($_POST['sid'])) {
     die();
 }
 
+if (!empty($_GET['action'])) {
+    switch ($_GET['action']){
+        case 'removeInstructor':
+            //writelog(NULL, 'Switched to Student View.', 'Admin SID');
+            $_SESSION['instructor'] = 0;
+            break;
+        case 'addInstructor':
+            //writelog(NULL, 'Switched to Instructor View.', 'Admin SID');
+            $_SESSION['instructor'] = 1;
+            break;
+    }
+    header('Location: admin.php');
+    die();
+}
+
 //Get log entries
 $query = "SELECT * FROM logs WHERE type = ? ORDER BY time DESC, id DESC LIMIT 50";
 $params = array('Admin SID');

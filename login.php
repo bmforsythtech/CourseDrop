@@ -18,10 +18,15 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
     }
 
     if (!($bind = ldap_bind($connect, $username, $password))) {
-        array_push($errors, 'Username and/or Password was incorrect, please try agian.');
+        array_push($errors, 'The username or password you entered is incorrect. Visit <a href="http://www.forsythtech.edu/techlink">www.forsythtech.edu/techlink</a> for help with logging in.');
     }
-
-    if (empty($errors)) {
+    
+    if (!empty($errors)) {
+        //Load errors into session
+        $_SESSION['errors'] = $errors;
+        header('Location: login.php');
+        die();
+    } else {
         $result = ldap_search($connect,LDAP_SEARCHDN,$filter);
         ldap_sort($connect,$result,"sn");
         $info = ldap_get_entries($connect, $result);
