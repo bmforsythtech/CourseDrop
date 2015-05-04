@@ -19,52 +19,66 @@ if (isset($_GET['reset']))
 $query = "SELECT semester FROM forms GROUP BY semester ORDER BY id DESC LIMIT 5;";
 $semestersList = $mysql->rawQuery($query);
 
-if (isset($_POST['approve'])) {
+if (isset($_POST['approve']) && isset($_POST['id'])) {
     $data = array(
         'status' => $statuses[3],
         'status_code' => '3'
     );
 
-    $mysql->where('id', $_SESSION['id']);
+    $mysql->where('id', $_POST['id']);
     $result = $mysql->update('forms', $data);
+    
+    $query = "SELECT * FROM forms WHERE id = ?";
+
+    $params = array($_POST['id']);
+    $data = $mysql->rawQuery($query, $params);
+    $data = $data[0];
 
     if (empty($result)) {
-        $_SESSION['errors'][] = 'There was an error submitting the form';
-        header('Location: /' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_SESSION['id']);
+        $_SESSION['errors'][] = 'Form ' . $_POST['id'] . ' has already been processed.  Please review log for this form.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
+        exit();
+    } elseif (!empty($data)) {
+        student_processed($data);
+        instructor_processed($data);
+        veteran_check($data);
+        deans_processed($data);
+        writelog($_POST['id'], 'Records Office set drop form to completed.');
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?confirm');
         exit();
     } else {
-        student_processed($_SESSION['courseinfo']);
-        instructor_processed($_SESSION['courseinfo']);
-        veteran_check($_SESSION['courseinfo']);
-        deans_processed($_SESSION['courseinfo']);
-        writelog($_SESSION['id'], 'Records Office set drop form to completed.');
-        header('Location: /' . basename($_SERVER['SCRIPT_NAME']) . '?confirm');
+        $_SESSION['errors'][] = 'There was an error approving form ' . $_POST['id'] . '.  Form not found.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
         exit();
     }
-} elseif (isset($_POST['update'])) {
+} elseif (isset($_POST['update']) && isset($_POST['id'])) {
     $data = array(
         'grade' => $_POST['grade'],
         'lastdate' => $_POST['lastdate']
     );
 
-    $mysql->where('id', $_SESSION['id']);
+    $mysql->where('id', $_POST['id']);
     $result = $mysql->update('forms', $data);
+    
+    $query = "SELECT * FROM forms WHERE id = ?";
+
+    $params = array($_POST['id']);
+    $data = $mysql->rawQuery($query, $params);
+    $data = $data[0];
 
     if (empty($result)) {
         $_SESSION['errors'][] = 'No information has changed.';
-        header('Location: /' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_SESSION['id']);
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
         exit();
     } else {
-        writelog($_SESSION['id'], 'Drop request updated. Old grade: ' . $_SESSION['courseinfo']['grade'] . '.  Old last date attended: ' . $_SESSION['courseinfo']['lastdate'] . '.');
-        header('Location: /' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_SESSION['id']);
+        writelog($_SESSION['id'], 'Drop request updated. Old grade: ' . $data['grade'] . '.  Old last date attended: ' . $data['lastdate'] . '.');
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
         exit();
     }
 } elseif (isset($_GET['id'])) {
-    $_SESSION['id'] = $_GET['id'];
-
     $query = "SELECT * FROM forms WHERE id = ? AND deleted = ?";
 
-    $params = array($_SESSION['id'], '0');
+    $params = array($_GET['id'], '0');
     $data = $mysql->rawQuery($query, $params);
     $data = $data[0];
 
@@ -72,8 +86,6 @@ if (isset($_POST['approve'])) {
 
     $params = array($data['id']);
     $logs = $mysql->rawQuery($query, $params);
-
-    $_SESSION['courseinfo'] = $data;
 } elseif (isset($_GET['confirm'])) {
     include(DIR_VIEWS . 'header.php');
     ?>
@@ -96,7 +108,8 @@ if (isset($_POST['approve'])) {
     if(empty($result)){
         $_SESSION['errors'][] = 'There was an error deleting the form.';
     } else {
-        writelog($_SESSION['id'], 'Deleted');
+        $_SESSION['messages'][] = 'Form ' . $_GET['delete'] . ' deleted.';
+        writelog($_GET['delete'], 'Deleted');
     }
     
     header('Location: view_form.php');

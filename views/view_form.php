@@ -59,6 +59,7 @@
             <th>SID</th>
             <th>Status</th>
             </thead>
+            <tbody>
             <?php
             foreach ($history as $row) {
                 preg_match('/\[(.+?)\s\w+?\]\s(.+)/', $row['course_name'], $matches);
@@ -73,6 +74,7 @@
                     <td><?php echo $row['status']; ?></td>
                 </tr>
             <?php } ?>
+            </tbody>
         </table>
     </div>
 </div>

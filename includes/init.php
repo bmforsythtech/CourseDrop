@@ -40,15 +40,25 @@ if (isset($config['year']) && isset($config['semester'])){
 }
 
 //Admins do not check setup screen and do not realize when the configuration is incorrect.
-if (
-        $_SESSION['admin'] == 1 &&
-        (strtotime($config['open'] . ' ' . $config['openTime']) > time() || strtotime($config['close'] . ' ' . $config['closeTime']) < time())
-   ) {
-    $_SESSION['messages'][] = 'The Course Drop system is closed to students.';
+if (!isset($_SESSION['messagesRead'])){
+    $_SESSION['messagesRead'] = array();
 }
 if (
         $_SESSION['admin'] == 1 &&
+        !in_array(1, $_SESSION['messagesRead']) &&
+        (strtotime($config['open'] . ' ' . $config['openTime']) > time() || strtotime($config['close'] . ' ' . $config['closeTime']) < time())
+   ) {
+    $_SESSION['messages'][] = 'The Course Drop system is closed to students.';
+    $_SESSION['messagesRead'][] = 1;
+}
+if (
+        $_SESSION['admin'] == 1 &&
+        !in_array(2, $_SESSION['messagesRead']) &&
         (strtotime($config['iopen'] . ' ' . $config['iopenTime']) > time() || strtotime($config['iclose'] . ' ' . $config['icloseTime']) < time())
    ) {
     $_SESSION['messages'][] = 'The Course Drop system is closed to instructors.';
+    $_SESSION['messagesRead'][] = 2;
+}
+if (isset($_GET['messagesRead'])){
+    $_SESSION['messagesRead'][] = (int)$_GET['messagesRead'];
 }

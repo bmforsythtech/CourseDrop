@@ -74,6 +74,7 @@
             <?php } ?>
             <input type="submit" name="update" value="Update" class="radius button" />
             <input type="submit" name="cancel" value="Cancel" class="radius alert button" />
+            <input type="hidden" name="id" value="<?php echo $data['id']; ?>" />
         </div>
     </div>
 </form>
@@ -93,6 +94,7 @@
             <th>Time</th>
             <th>IP</th>
             </thead>
+            <tbody>
             <?php foreach ($logs as $log) { ?>
                 <tr>
                     <td><?php echo $log['name']; ?></td>
@@ -102,6 +104,7 @@
                     <td><?php echo $log['ip']; ?></td>
                 </tr>
             <?php } ?>
+            </tbody>
         </table>
     </div>
 </div>
