@@ -13,8 +13,16 @@ if (isset($_GET['semester']))
     $_SESSION['filter']['semester'] = $_GET['semester'];
 if (isset($_GET['search']))
     $_SESSION['filter']['search'] = trim($_GET['search']);
-if (isset($_GET['reset']))
+if (isset($_GET['deleted']))
+    $_SESSION['filter']['deleted'] = $_GET['deleted'];
+if (isset($_GET['reset'])){
     unset($_SESSION['filter']['search']);
+    unset($_SESSION['filter']['deleted']);}
+
+//Default deleted to 0
+if (!isset($_SESSION['filter']['deleted']))
+    $_SESSION['filter']['deleted'] = 0;
+    
 //Get list of semesters
 $query = "SELECT semester FROM forms GROUP BY semester ORDER BY id DESC LIMIT 5;";
 $semestersList = $mysql->rawQuery($query);
@@ -71,14 +79,14 @@ if (isset($_POST['approve']) && isset($_POST['id'])) {
         header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
         exit();
     } else {
-        writelog($_SESSION['id'], 'Drop request updated. Old grade: ' . $data['grade'] . '.  Old last date attended: ' . $data['lastdate'] . '.');
+        writelog($_POST['id'], 'Drop request updated. Old grade: ' . $data['grade'] . '.  Old last date attended: ' . $data['lastdate'] . '.');
         header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_POST['id']);
         exit();
     }
 } elseif (isset($_GET['id'])) {
-    $query = "SELECT * FROM forms WHERE id = ? AND deleted = ?";
+    $query = "SELECT * FROM forms WHERE id = ?";
 
-    $params = array($_GET['id'], '0');
+    $params = array($_GET['id']);
     $data = $mysql->rawQuery($query, $params);
     $data = $data[0];
 
@@ -86,6 +94,23 @@ if (isset($_POST['approve']) && isset($_POST['id'])) {
 
     $params = array($data['id']);
     $logs = $mysql->rawQuery($query, $params);
+} elseif (isset($_GET['undelete']) && !empty($_GET['undelete'])) {
+    $data = array(
+        'deleted' => 0
+    );
+
+    $mysql->where('id', $_GET['undelete']);
+    $result = $mysql->update('forms', $data);
+    
+    if (empty($result)) {
+        $_SESSION['errors'][] = 'Form ' . $_GET['undelete'] . ' could not be restored.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['undelete']);
+        exit();
+    } else {
+        writelog($_GET['undelete'], 'Restored');
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['undelete']);
+        exit();
+    }
 } elseif (isset($_GET['confirm'])) {
     include(DIR_VIEWS . 'header.php');
     ?>
@@ -122,7 +147,7 @@ if (!empty($data)) {
     include(DIR_VIEWS . 'form.view.php');
 } else {
     $query = "SELECT COUNT(*) as pages FROM forms WHERE deleted = ?";
-    $params = array(0);
+    $params = array($_SESSION['filter']['deleted']);
     if (!empty($_SESSION['filter']['filter'])) {
         $query .= " AND lastname REGEXP ?";
         $params[] = '^[' . substr($_SESSION['filter']['filter'], 0, 1) .  '-' . substr($_SESSION['filter']['filter'], 1, 1) . ']';
@@ -152,7 +177,7 @@ if (!empty($data)) {
     $pages = ceil(($pagesCount[0]['pages']) / 10);
     
     $query = "SELECT id, semester, status, firstname, lastname, course, course_name, studentid, status FROM forms WHERE deleted = ?";
-    $params = array(0);
+    $params = array($_SESSION['filter']['deleted']);
     if (!empty($_SESSION['filter']['filter'])) {
         $query .= " AND lastname REGEXP ?";
         $params[] = '^[' . substr($_SESSION['filter']['filter'], 0, 1) .  '-' . substr($_SESSION['filter']['filter'], 1, 1) . ']';

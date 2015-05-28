@@ -43,6 +43,16 @@
         </dl>
     </div>
 </div>
+<?php if (!empty($_SESSION['filter']['deleted'])){ ?>
+<div class="row">
+    <div class="large-16 columns">
+        <div data-alert class="alert-box warning radius">
+            You are currently viewing deleted forms.  Click the reset button above to view all forms.
+            <a href="#" class="close">&times;</a>
+        </div>
+    </div>
+</div>
+<?php } ?>
 <div class="row">
     <div class="large-16 columns">
         <?php if (empty($history)) { ?>
@@ -97,4 +107,9 @@
         <?php } ?>
     </ul>
     <p>Total: <?php echo $pagesCount[0]['pages']; ?></p>
+</div>
+<div class="row">
+    <div class="large-16 columns">
+        <p class="text-center"><a href="?deleted=<?php echo (empty($_SESSION['filter']['deleted'])) ? '1' : '0' ?>">View <?php echo (empty($_SESSION['filter']['deleted'])) ? 'deleted' : 'all' ?> forms.</a></p>
+    </div>
 </div>

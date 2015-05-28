@@ -3,6 +3,12 @@
     <div class="row">
         <div class="lage-16 columns">
             <h3>View Form</h3>
+<?php if (!empty($data['deleted'])){ ?>
+            <div data-alert class="alert-box secondary radius">
+                This form has been deleted.  <a href="?undelete=<?php echo $data['id']; ?>">Click here to restore it</a>.
+                <a href="#" class="close">&times;</a>
+            </div>
+<?PHP } ?>
             <table width="100%">
                	<tr>
                     <td width="30%">Form ID</td>
