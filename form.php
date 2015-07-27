@@ -37,7 +37,7 @@ $params = array($_SESSION['sid'], $semester, 'Y');
 $data = $mysql->rawQuery($query, $params);
 
 //Not the best way...
-$query = "SELECT course FROM forms WHERE studentid LIKE ? AND semester = ? AND deleted = 0";
+$query = "SELECT course FROM forms WHERE studentid LIKE ? AND semester = ?";
 
 $params = array($_SESSION['sid'], $semester);
 $results = $mysql->rawQuery($query, $params);

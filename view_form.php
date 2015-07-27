@@ -52,6 +52,7 @@ if (isset($_POST['approve']) && isset($_POST['id'])) {
         veteran_check($data);
         deans_processed($data);
         writelog($_POST['id'], 'Records Office set drop form to completed.');
+        $_SESSION['id'] = $_POST['id'];
         header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?confirm');
         exit();
     } else {

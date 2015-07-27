@@ -57,6 +57,7 @@
                 <tr>
                     <td>Grade</td>
                     <td><select name="grade" id="grade">
+                            <option value=""></option>
                             <option value="W"  <?php if ($data['grade'] == 'W') echo 'selected'; ?>>W</option>
                             <option value="WP" <?php if ($data['grade'] == 'WP') echo 'selected'; ?>>WP</option>
                             <option value="WF" <?php if ($data['grade'] == 'WF') echo 'selected'; ?>>WF</option>

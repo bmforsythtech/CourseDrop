@@ -57,6 +57,15 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
         continue;
     }
     
+    //Multiple Instructors
+    $instructor_emails = "";
+    for ($i=0; $i<count($iresult); $i++){
+        //Sanity check.  No more than 3
+        if ($i>2) break;
+        $instructor_emails .= $iresult[$i]['email'] . ',';
+    }
+    $instructor_emails = rtrim($instructor_emails, ',');
+    
     $data = array();
     $data['status'] = $statuses[1];
     $data['status_code'] = '1';
@@ -72,7 +81,7 @@ foreach ($_SESSION['coursesToDrop'] as $course) {
     $data['reasons'] = implode(", ", $_SESSION['reasonsToDrop']);
     $data['instructorid'] = $iresult[0]['user_id'];
     $data['instructorname'] = $iresult[0]['firstname'] . ' ' . $iresult[0]['lastname'];
-    $data['instructoremail'] = $iresult[0]['email'];
+    $data['instructoremail'] = $instructor_emails;
     $data['officialwithdrawal'] = time();
     $data['tuid'] = md5(uniqid(rand(), true));
     $data['idue'] = mktime(date("H"), date("i"), date("s"), date("n"), date("j") + 1, date("Y"));
