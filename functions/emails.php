@@ -40,6 +40,7 @@ function veteran_check($data) {
             'Reason(s) for Dropping: ' . $data['reasons'] . "<br>\r\n" .
             'Veteran?: ' . ucfirst($data['veteran']) . "<br>\r\n" .
             'Grade: ' . $data['grade'] . "<br>\r\n" .
+            'Comments: ' . $data['comments'] . "<br>\r\n" .
             'Last Date of Attendance: ' . $data['lastdate'] . "<br>\r\n";
 
     $mailed = mail($emailTo, $subject, $message, $headers);
