@@ -83,15 +83,17 @@
     <?php } ?>
     <div class="row">
         <div class="large-16 columns">
-            <hr />
-            <p>You will confirm your selection on the next page.</p>
-            <input type="submit" name="submit" value="Submit" class="success radius button" />
-            <a href="index.php?logout=true" class="alert radius button">Cancel</a>
+            <div class="alert-box radius secondary">
+                <p>If you are receiving financial assistance (grants, loans, VA benefits) you should check with <a href="http://www.forsythtech.edu/services-students/student-resources/financial-aid/">Finacial Aid</a> before submitting an online course withdrawal.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="large-16 columns">
-            <p>If you are receiving financial assistance (grants, loans, VA benefits) you should check with <a href="http://www.forsythtech.edu/services-students/student-resources/financial-aid/">Finacial Aid</a> before submitting an online course withdrawal.</p>
+            <hr />
+            <p>You will confirm your selection on the next page.</p>
+            <input type="submit" name="submit" value="Submit" class="success radius button" />
+            <a href="index.php?logout=true" class="alert radius button">Cancel</a>
         </div>
     </div>
 </form>

@@ -69,8 +69,10 @@
 <?php } ?>
     <div class="row">
         <div class="large-16 columns">
-            <h5>Are you receiving a financial aid this semester?</h5>
-            <p>Withdrawing from course(s) can negatively affect your financial aid, and in some cases, may require tuition to be paid back.  If you have any questions about this, please contact the Financial Aid Office at (336) 734-7235.</p>
+            <div class="alert-box radius secondary">
+                <h5>Are you receiving a financial aid this semester?</h5>
+                <p>Withdrawing from course(s) can negatively affect your financial aid, and in some cases, may require tuition to be paid back.  If you have any questions about this, please contact the Financial Aid Office at (336) 734-7235.</p>
+            </div>
         </div>
     </div>
     <div class="row">
