@@ -133,6 +133,43 @@ CREATE TABLE IF NOT EXISTS `forms` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `forms`
+--
+
+CREATE TABLE IF NOT EXISTS `forms_archive` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` varchar(64) NOT NULL,
+  `status_code` tinyint(4) NOT NULL,
+  `semester` varchar(8) NOT NULL,
+  `firstname` varchar(32) NOT NULL,
+  `lastname` varchar(32) NOT NULL,
+  `studentemail` varchar(64) NOT NULL,
+  `studentid` varchar(16) NOT NULL,
+  `username` varchar(32) NOT NULL,
+  `phone` varchar(16) NOT NULL,
+  `veteran` varchar(8) NOT NULL,
+  `course` varchar(32) NOT NULL,
+  `course_name` varchar(64) NOT NULL,
+  `division` varchar(8) NOT NULL,
+  `reasons` text NOT NULL,
+  `grade` varchar(4) NOT NULL,
+  `lastdate` varchar(16) NOT NULL,
+  `comments` text NOT NULL,
+  `instructorid` varchar(16) NOT NULL,
+  `instructorname` varchar(64) NOT NULL,
+  `instructoremail` varchar(64) NOT NULL,
+  `officialwithdrawal` int(11) NOT NULL,
+  `tuid` varchar(32) NOT NULL,
+  `idue` int(11) NOT NULL,
+  `rdue` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Form Search` (`semester`,`course`,`studentid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `instructors`
 --
 

@@ -112,6 +112,51 @@ if (isset($_POST['approve']) && isset($_POST['id'])) {
         header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['undelete']);
         exit();
     }
+} elseif (isset($_GET['deleteforever']) && !empty($_GET['deleteforever'])) {
+    //Pull original information
+    $query = "SELECT * FROM forms WHERE id = ?";
+
+    $params = array($_GET['deleteforever']);
+    $data = $mysql->rawQuery($query, $params);
+    $data = $data[0];
+    
+    if (empty($data)) {
+        $_SESSION['errors'][] = 'Bad request: ' . $_GET['deleteforever'] . '.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['deleteforever']);
+        exit();
+    }
+    
+    //Move data to archive table
+
+    //The MYSQL insert class/function fails on null varibles
+    foreach ($data as $key=>$value){
+        if (empty($value)){
+            unset($data[$key]);
+        }
+    }
+    
+    $insert_id = $mysql->insert('forms_archive', $data);
+    
+    if (empty($insert_id)) {
+        $_SESSION['errors'][] = 'Could not archive form: ' . $_GET['deleteforever'] . '.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['deleteforever']);
+        exit();
+    }
+    
+    //Delete original
+    
+    $mysql->where('id', $_GET['deleteforever']);
+    $result = $mysql->delete('forms', 1);
+    
+    if (empty($result)) {
+        $_SESSION['errors'][] = 'Could not delete form: ' . $_GET['deleteforever'] . '.';
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']) . '?id=' . $_GET['deleteforever']);
+        exit();
+    } else {
+        writelog(NULL, 'Deleted form ' . $_GET['deleteforever'], 'Form Delete');
+        header('Location: ' . basename($_SERVER['SCRIPT_NAME']));
+        exit();
+    }
 } elseif (isset($_GET['confirm'])) {
     include(DIR_VIEWS . 'header.php');
     ?>

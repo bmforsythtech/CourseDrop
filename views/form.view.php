@@ -5,7 +5,13 @@
             <h3>View Form</h3>
 <?php if (!empty($data['deleted'])){ ?>
             <div data-alert class="alert-box secondary radius">
-                This form has been deleted.  <a href="?undelete=<?php echo $data['id']; ?>">Click here to restore it</a>.
+                <p>This form has been deleted.</p>
+                <ul>
+                    <li><a href="?undelete=<?php echo $data['id']; ?>">Restore Form</a></li>
+                    <ul><li>Use this option if you accidently deleted the form and would like to restore the workflow process.</li></ul>
+                    <li><a href="?deleteforever=<?php echo $data['id']; ?>">Permanently Remove Form</a></li>
+                    <ul><li>Use this option if you wish to permanently remove the form from the system.  This will allow the student to re-submit a request to drop.</li></ul>
+                </ul>
                 <a href="#" class="close">&times;</a>
             </div>
 <?PHP } ?>
