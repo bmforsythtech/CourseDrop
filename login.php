@@ -4,6 +4,7 @@ require_once('config.php');
 require_once(DIR_INCLUDES . 'init.php');
 
 $errors = array();
+$messages = array();
 if ((isset($_POST['username'])) && (isset($_POST['password']))) {
     $username = LDAP_PRN . $_POST['username'];
     $password = $_POST['password'];
@@ -14,16 +15,29 @@ if ((isset($_POST['username'])) && (isset($_POST['password']))) {
     }
 
     if (!($connect = ldap_connect(LDAP_SERVER, LDAP_PORT))) {
-        array_push($errors, 'Error #1, please contact webmaster@forsythtech.edu with this message.');
+        array_push($errors, 'Error #1, please contact ' . DEBUG_FROM . ' with this message.');
+    }
+    
+    if (LDAP_TLS){
+        if (!ldap_set_option($connect, LDAP_OPT_PROTOCOL_VERSION, 3)){
+            array_push($errors, 'Error #2, please contact ' . DEBUG_FROM . ' with this message.');
+        }
+        if (!ldap_set_option($connect, LDAP_OPT_REFERRALS, 0)){
+            array_push($errors, 'Error #3, please contact ' . DEBUG_FROM . ' with this message.');
+        }
+        if (!ldap_start_tls($connect)){
+            array_push($errors, 'Error #4, please contact ' . DEBUG_FROM . ' with this message.');
+        }
     }
 
     if (!($bind = ldap_bind($connect, $username, $password))) {
-        array_push($errors, 'The username or password you entered is incorrect. Visit <a href="http://www.forsythtech.edu/techlink">www.forsythtech.edu/techlink</a> for help with logging in.');
+        array_push($errors, 'The username or password you entered is incorrect. Visit <a href="' . HELP_URL . '" target="_blank">' . HELP_URL . '</a> for help with logging in.');
     }
     
     if (!empty($errors)) {
         //Load errors into session
         $_SESSION['errors'] = $errors;
+        $_SESSION['messages'] = $messages;
         header('Location: login.php');
         die();
     } else {
